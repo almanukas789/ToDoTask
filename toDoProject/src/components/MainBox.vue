@@ -2,16 +2,19 @@
   <div class="container">
     <br/>
     <div v-for="item in wdata" :key="item.id" class="box">
-      <p class="title is-5">{{item.title}}</p>
-      <p class="subtitle">{{ item.completed }}</p>
+      <p><strong>Day: </strong>{{item.date}}</p>
+      <p>{{item.summary}}</p>
+      <p>{{ item.status }}</p>
     </div>
+    <br/>
   </div>
 </template>
 <script>
 export default {
   props: ['wdata'],
   data () {
-    return {}
+    return {
+    }
   }
 }
 </script>

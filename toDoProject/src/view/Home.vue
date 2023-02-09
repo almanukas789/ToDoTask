@@ -72,7 +72,7 @@ export default {
   },
   mounted () {
     axios
-      .get('https://jsonplaceholder.typicode.com/todos/')
+      .get('https://localhost:7281/WeatherForecast')
       .then((r) => (this.wdata = r.data))
       .catch((error) => {
         console.log(error)

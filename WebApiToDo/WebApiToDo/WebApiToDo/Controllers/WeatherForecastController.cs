@@ -7,9 +7,17 @@ namespace WebApiToDo.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
+        private static readonly string[] Tasks = new[]
         {
-        "Šalta", "Vėjuotas", "Vėsu", "Labai šalta", "Vidutiniškai", "Šilta", "Audringas oras", "Karšta", "Prakaituojantis oras", "Deginantis"
+        "Pamiegoti", "Pasapnuoti", "Programuoti", "Pazaisti kompiuterinius zaidimus", "Padeti tevams", "Padaryti labaratorinius darbus", "Pasiruosti egzaminui", "Papramogauti", "Susitikti su draugais", "Padaryti 11 uzduoti"
+    };
+        private static readonly string[] Status = new[]
+     {
+        "Ivygdyta","Neivygdyta"
+    };
+        private static readonly string[] Date = new[]
+     {
+        "Pirmadienis","Antradienis","Treciadienis","Ketvirtadienis","Penktadienis","Sestadienis","Sekmadienis"
     };
 
         [HttpGet]
@@ -18,9 +26,9 @@ namespace WebApiToDo.Controllers
             var rng = new Random();
             var weatherForecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)],
+                Date = Date[rng.Next(Date.Length)],
+                Status = Status[rng.Next(Status.Length)],
+                Summary = Tasks[rng.Next(Tasks.Length)],
             })
             .ToArray();
 
