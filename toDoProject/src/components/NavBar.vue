@@ -19,7 +19,7 @@
         </a>
           </div>
           <div class="navbar-end">
-            <a class="navbar-item" href="https://github.com/almanukas789?tab=repositories" target="_blank">
+            <a class="navbar-item" href="https://github.com/almanukas789/ToDoTask" target="_blank">
                 <img src="../assets/githubicon.png"/>
         </a>
         <a class="navbar-item" href="https://lt.linkedin.com/in/almanas-alaburda-6675261b8" target="_blank">
