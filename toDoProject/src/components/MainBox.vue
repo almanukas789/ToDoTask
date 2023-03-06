@@ -3,7 +3,7 @@
     <br/>
     <div v-for="item in wdata" :key="item.id" class="box">
       <p><strong>Day: </strong>{{item.date}}</p>
-      <p>{{item.summary}}</p>
+      <p>{{item.task}}</p>
       <p>{{ item.status }}</p>
     </div>
     <br/>

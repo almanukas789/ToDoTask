@@ -1,9 +1,14 @@
 <template>
     <div id="top">
+      <addModal
+      :isVisible=isVisible
+      @toggleModal="toggleModal"
+      @updateData="updateData"
+      />
         <NavBar/>
             <div class="columns">
               <div class="column is-narrow">
-               <SideBar/>
+               <SideBar @toggleModal="toggleModal" @updateData="updateData"/>
               </div>
               <div class="column">
                 <MainBox
@@ -12,32 +17,11 @@
               </div>
             </div>
         <button @click="hello">Hello</button>
-        <!-- <div class="envcard" v-for="item in wdata" :key="item.id">
-          <div class="card">
-            <header class="card-header">
-              <p class="card-header-title">
-                Date: {{item.date}}
-              </p>
-              <button class="card-header-icon" aria-label="more options">
-                <span class="icon">
-                  <i class="fas fa-angle-down" aria-hidden="true"></i>
-                </span>
-              </button>
-            </header>
-            <div class="card-content">
-              <div class="content">
-                Temperature: {{ item.temperatureC }}C
-                <br/>
-                Summary: {{ item.summary }}
-              </div>
-            </div>
-          </div>
-          <br/>
-        </div> -->
     </div>
 </template>
 
 <script>
+import AddModal from '../components/AddModal.vue'
 import NavBar from '../components/NavBar.vue'
 import SideBar from '../components/SideBar.vue'
 import MainBox from '../components/MainBox.vue'
@@ -46,33 +30,37 @@ export default {
   components: {
     NavBar,
     SideBar,
-    MainBox
+    MainBox,
+    AddModal
   },
   data () {
     return {
-      wdata: []
+      wdata: [],
+      refresh: 50,
+      isVisible: false
     }
   },
   methods: {
+    toggleModal () {
+      this.isVisible = !this.isVisible
+    },
+    updateData () {
+      console.log('Done')
+      axios
+        .get('https://localhost:7281/todo')
+        .then((r) => (this.wdata = r.data))
+        .catch((error) => {
+          console.log(error)
+          this.errored = true
+        })
+    },
     hello () {
       console.log(this.wdata)
-      const tempData = {
-        date: 'this.title',
-        temperatureC: 'this.author',
-        summary: 'this.body'
-      }
-      axios
-        .post('https://localhost:7281/WeatherForecast', tempData)
-        .then((response) => (tempData.id = response.data.id))
-        .catch((error) => {
-          this.errorMessage = error.message
-          console.error('ERRORAS!', error)
-        })
     }
   },
   mounted () {
     axios
-      .get('https://localhost:7281/WeatherForecast')
+      .get('https://localhost:7281/todo')
       .then((r) => (this.wdata = r.data))
       .catch((error) => {
         console.log(error)
