@@ -6,6 +6,8 @@ import router from './router'
 
 Vue.config.productionTip = false
 
+Vue.prototype.$apiUrl = 'https://localhost:7281/todo'
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

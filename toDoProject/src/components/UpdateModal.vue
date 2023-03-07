@@ -1,15 +1,15 @@
 <template>
-    <div class="modal is-active" v-if="isVisible">
+    <div class="modal is-active" v-if="updateModalVisability">
         <div class="modal-background"></div>
         <div class="modal-card">
           <header class="modal-card-head">
-            <p class="modal-card-title">Add To-Do task</p>
+            <p class="modal-card-title">Update your task</p>
             <button class="delete" aria-label="close" @click="toggleModal"></button>
           </header>
           <section class="modal-card-body">
-           <p class="modal-body-text">Select the Deadline: <input type="date" v-model="selectedDate" required/> </p>
+           <p class="modal-body-text">Select the Deadline: <input type="date" v-model="updateData.date" required/> </p>
             <p class="modal-body-text">Task:</p>
-            <textarea class="textarea" placeholder="Enter your task here" v-model="taskInput" required></textarea>
+            <textarea class="textarea" placeholder="Enter your task here" v-model="updateData.task" required></textarea>
             <p style="color:red" v-if="infoMsgState">{{ infoMsg }}</p>
           </section>
           <footer class="modal-card-foot">
@@ -22,7 +22,7 @@
 <script>
 import axios from 'axios'
 export default {
-  props: ['isVisible'],
+  props: ['updateData', 'updateModalVisability'],
   data () {
     return {
       selectedDate: undefined,
@@ -42,7 +42,7 @@ export default {
       } else {
         this.infoMsgState = false
         await axios
-          .post(this.$apiUrl + '?task=' + this.taskInput + '&date=' + this.selectedDate)
+          .put(this.$apiUrl + '?id=' + this.updateData.ID + '&task=' + this.updateData.task + '&date=' + this.updateData.date + '&status=' + this.updateData.status)
           .catch((error) => {
             this.errorMessage = error.message
             console.error('ERRORAS!', error)

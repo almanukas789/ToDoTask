@@ -13,6 +13,7 @@
               <div class="column">
                 <MainBox
                 :wdata="wdata"
+                @updateData="updateData"
                 />
               </div>
             </div>
@@ -45,9 +46,8 @@ export default {
       this.isVisible = !this.isVisible
     },
     updateData () {
-      console.log('Done')
       axios
-        .get('https://localhost:7281/todo')
+        .get(this.$apiUrl)
         .then((r) => (this.wdata = r.data))
         .catch((error) => {
           console.log(error)
@@ -59,13 +59,7 @@ export default {
     }
   },
   mounted () {
-    axios
-      .get('https://localhost:7281/todo')
-      .then((r) => (this.wdata = r.data))
-      .catch((error) => {
-        console.log(error)
-        this.errored = true
-      })
+    this.updateData()
   }
 }
 </script>

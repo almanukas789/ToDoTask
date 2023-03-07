@@ -11,6 +11,7 @@ namespace WebApiToDo.Controllers
     public class HomeController : ControllerBase
     {
         SqlConnection conn = new SqlConnection("server=DESKTOP-EDJE2GU\\SQLEXPRESS; database=toDoDB; Integrated Security=true;");
+
         [HttpGet]
         public string Get()
         {
@@ -23,7 +24,7 @@ namespace WebApiToDo.Controllers
             }
             else
             {
-                return "No data found";
+                return null;
             }
         }
         [HttpPost]
@@ -32,6 +33,7 @@ namespace WebApiToDo.Controllers
             SqlCommand cmd = new SqlCommand("INSERT INTO toDoTable(task,date,status) VALUES ('"+ task +"','"+ date +"','1')", conn);
             conn.Open();
             int i = cmd.ExecuteNonQuery();
+            conn.Close();
             if (i > 0)
             {
                 return "Record was inserted!";
@@ -41,5 +43,38 @@ namespace WebApiToDo.Controllers
                 return "Try again!";
             }
         }
+        [HttpDelete]
+        public string Delete(int id)
+        {
+            SqlCommand cmd = new SqlCommand("DELETE FROM toDoTable WHERE ID = '"+ id +"'", conn);
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close(); 
+            if (i > 0)
+            {
+                return "Record was updated!";
+            }
+            else
+            {
+                return "Try again!";
+            }
+        }
+        [HttpPut]
+        public string Put(int id, string task, string date, string status)
+        {
+            SqlCommand cmd = new SqlCommand("UPDATE toDoTable SET task = '"+task+"', status = '"+status+"', date = '"+date+"' WHERE ID = '"+id+"'", conn);
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            conn.Close();
+            if (i > 0)
+            {
+                return "Record was updated!";
+            }
+            else
+            {
+                return "Try again!";
+            }
+        }
+
     }
 }
