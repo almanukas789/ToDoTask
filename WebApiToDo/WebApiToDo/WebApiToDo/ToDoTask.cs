@@ -2,7 +2,7 @@
 
 public class ToDoTask
 {
-    public string? Date { get; set; }
+    public string? Time { get; set; }
 
     public string? Status { get; set; }
 

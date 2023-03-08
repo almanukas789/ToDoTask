@@ -1,17 +1,15 @@
 <template>
   <div class="boxs" style="width: 200px;">
     <br/>
-        <p class="menu-label">
-          Actions
-        </p>
-        <ul class="menu-list">
-          <li><a @click="toggleModal" class="menu-list-text-color">Add To-Do task</a></li>
-          <li><a @click="updateData" class="menu-list-text-color">Refresh table</a></li>
-          <li><a class="menu-list-text-color">Not completed tasks</a></li>
-          <li><a class="menu-list-text-color">Completed tasks</a></li>
-        </ul>
-        <br/>
-    </div>
+    <p class="menu-label">Actions</p>
+    <ul class="menu-list">
+      <li><a @click="toggleModal" class="menu-list-text-color">Add To-Do task</a></li>
+      <li><a @click="updateData" class="menu-list-text-color">Refresh table</a></li>
+      <li><a @click="notCompleted" class="menu-list-text-color">Not completed tasks</a></li>
+      <li><a @click="completed" class="menu-list-text-color">Completed tasks</a></li>
+    </ul>
+    <br/>
+  </div>
 </template>
 <script>
 export default {
@@ -20,6 +18,12 @@ export default {
     }
   },
   methods: {
+    notCompleted () {
+      this.$emit('notCompleted', '0')
+    },
+    completed () {
+      this.$emit('completed', '1')
+    },
     updateData () {
       this.$emit('updateData')
     },
@@ -40,8 +44,8 @@ export default {
 }
 .side, .boxs{
     margin-left: 5px;
-    margin-right: 85%;
     border-radius: 25px;
     background-color: black;
+    width: 100%;
 }
 </style>

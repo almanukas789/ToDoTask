@@ -3,21 +3,29 @@
   <UpdateModal
   :updateData="updateData"
   :updateModalVisability="updateModalVisability"
+  @toggleUpdateModal="toggleUpdateModal"
   />
-    <div v-if="wdata==''" class="box"><p style="text-align:center">No data found!</p></div>
-    <div v-else>
-      <div class="container">
-        <br/>
-          <div v-for="item in wdata" :key="item.id" class="box">
-            <p><strong>Day: </strong>{{item.date}}</p>
-            <p>{{item.task}}</p>
-            <p>{{ item.status }}</p>
-            <button class="button is-danger" @click="deleteTask(item.ID)">Delete</button>
-            <button class="button" @click="updateTask(item)">Update</button>
+  <div v-if="wdata==''" class="box"><p style="text-align:center">No tasks!</p></div>
+  <div v-else>
+    <div class="container">
+      <br/>
+      <h1 style="text-align:center; color:#BEB7A4">{{ tableTitle }}</h1>
+      <br/>
+      <div v-for="item in wdata" :key="item.id" class="box">
+        <div style="display:flex">
+          <div style="display:flex ; flex-direction: column;">
+            <h1 style="display:block;font-size: 20px;"><strong>Task: </strong>{{item.task}}</h1>
+            <h1 style="display:block"><strong>Dedicated time for the task:</strong> {{item.time}} minutes</h1>
           </div>
-          <br/>
+          <div style="margin-left:auto">
+            <button class="button" @click="updateTask(item)"><img src="../assets/edit.png" width="20" height="20"/></button>
+            <button class="button is-danger" @click="deleteTask(item.ID)"><img src="../assets/delete.png" width="20" height="20"/></button>
+          </div>
+        </div>
+      </div>
+      <br/>
     </div>
-    </div>
+  </div>
 </div>
 </template>
 <script>
@@ -27,7 +35,15 @@ export default {
   components: {
     UpdateModal
   },
-  props: ['wdata'],
+  props: {
+    wdata: {
+      type: Array,
+      default: undefined
+    },
+    tableTitle: {
+      type: String
+    }
+  },
   data () {
     return {
       updateData: [],

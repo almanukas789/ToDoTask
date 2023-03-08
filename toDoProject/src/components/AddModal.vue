@@ -1,23 +1,33 @@
 <template>
-    <div class="modal is-active" v-if="isVisible">
-        <div class="modal-background"></div>
-        <div class="modal-card">
-          <header class="modal-card-head">
-            <p class="modal-card-title">Add To-Do task</p>
-            <button class="delete" aria-label="close" @click="toggleModal"></button>
-          </header>
-          <section class="modal-card-body">
-           <p class="modal-body-text">Select the Deadline: <input type="date" v-model="selectedDate" required/> </p>
-            <p class="modal-body-text">Task:</p>
-            <textarea class="textarea" placeholder="Enter your task here" v-model="taskInput" required></textarea>
-            <p style="color:red" v-if="infoMsgState">{{ infoMsg }}</p>
-          </section>
-          <footer class="modal-card-foot">
-            <button class="button is-success" @click="save">Save changes</button>
-            <button class="button" @click="toggleModal">Cancel</button>
-          </footer>
+  <div class="modal is-active" v-if="isVisible">
+    <div class="modal-background" @click="toggleModal"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Add To-Do task</p>
+        <button class="delete" aria-label="close" @click="toggleModal"></button>
+      </header>
+      <section class="modal-card-body">
+        <p class="modal-body-text">Dedicated time for the task:  </p>
+        <div class="select">
+          <select v-model="timeInput">
+            <option value="10">10 Minutes</option>
+            <option value="20">20 Minutes</option>
+            <option value="30">30 Minutes</option>
+            <option value="40">40 Minutes</option>
+            <option value="50">50 Minutes</option>
+            <option value="60">60 Minutes</option>
+          </select>
         </div>
-      </div>
+        <p class="modal-body-text">Task:</p>
+        <textarea class="textarea" placeholder="Enter your task here" v-model="taskInput" required></textarea>
+        <p style="color:red" v-if="infoMsgState">{{ infoMsg }}</p>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-success" @click="save">Save changes</button>
+        <button class="button" @click="toggleModal">Cancel</button>
+      </footer>
+    </div>
+  </div>
 </template>
 <script>
 import axios from 'axios'
@@ -25,7 +35,7 @@ export default {
   props: ['isVisible'],
   data () {
     return {
-      selectedDate: undefined,
+      timeInput: undefined,
       taskInput: undefined,
       infoMsgState: false,
       infoMsg: ''
@@ -33,8 +43,8 @@ export default {
   },
   methods: {
     async save () {
-      if (this.selectedDate === undefined) {
-        this.infoMsg = 'Please fill select the date!'
+      if (this.timeInput === undefined) {
+        this.infoMsg = 'Please dedicate the time for your task!'
         this.infoMsgState = true
       } else if (this.taskInput === undefined) {
         this.infoMsg = 'Please enter your task!'
@@ -42,7 +52,7 @@ export default {
       } else {
         this.infoMsgState = false
         await axios
-          .post(this.$apiUrl + '?task=' + this.taskInput + '&date=' + this.selectedDate)
+          .post(this.$apiUrl + '?task=' + this.taskInput + '&time=' + this.timeInput)
           .catch((error) => {
             this.errorMessage = error.message
             console.error('ERRORAS!', error)
@@ -53,7 +63,7 @@ export default {
     },
     toggleModal () {
       this.infoMsgState = false
-      this.selectedDate = undefined
+      this.timeInput = undefined
       this.taskInput = undefined
       this.$emit('toggleModal')
     }

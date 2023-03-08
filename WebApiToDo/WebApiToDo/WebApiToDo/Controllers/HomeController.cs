@@ -28,9 +28,9 @@ namespace WebApiToDo.Controllers
             }
         }
         [HttpPost]
-        public string Post(string task, string date)
+        public string Post(string task, int time)
         {
-            SqlCommand cmd = new SqlCommand("INSERT INTO toDoTable(task,date,status) VALUES ('"+ task +"','"+ date +"','1')", conn);
+            SqlCommand cmd = new SqlCommand("INSERT INTO toDoTable(task,time,status) VALUES ('"+ task +"','"+ time +"','0')", conn);
             conn.Open();
             int i = cmd.ExecuteNonQuery();
             conn.Close();
@@ -60,9 +60,9 @@ namespace WebApiToDo.Controllers
             }
         }
         [HttpPut]
-        public string Put(int id, string task, string date, string status)
+        public string Put(int id, string task, int time, string status)
         {
-            SqlCommand cmd = new SqlCommand("UPDATE toDoTable SET task = '"+task+"', status = '"+status+"', date = '"+date+"' WHERE ID = '"+id+"'", conn);
+            SqlCommand cmd = new SqlCommand("UPDATE toDoTable SET task = '"+task+"', status = '"+status+"', time = '"+time+"' WHERE ID = '"+id+"'", conn);
             conn.Open();
             int i = cmd.ExecuteNonQuery();
             conn.Close();

@@ -1,24 +1,28 @@
 <template>
-    <div id="top">
-      <addModal
-      :isVisible=isVisible
-      @toggleModal="toggleModal"
-      @updateData="updateData"
-      />
-        <NavBar/>
-            <div class="columns">
-              <div class="column is-narrow">
-               <SideBar @toggleModal="toggleModal" @updateData="updateData"/>
-              </div>
-              <div class="column">
-                <MainBox
-                :wdata="wdata"
-                @updateData="updateData"
-                />
-              </div>
-            </div>
-        <button @click="hello">Hello</button>
+  <div id="top">
+    <addModal
+    :isVisible=isVisible
+    @toggleModal="toggleModal"
+    @updateData="updateData"
+    />
+    <NavBar/>
+    <div class="columns">
+      <div class="column is-narrow">
+        <SideBar
+        @toggleModal="toggleModal"
+        @updateData="updateData"
+        @notCompleted="filter"
+        @completed="filter"/>
+      </div>
+      <div class="column">
+        <MainBox
+        :tableTitle="tableTitle"
+        :wdata="wdata"
+        @updateData="updateData"
+        />
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -38,12 +42,28 @@ export default {
     return {
       wdata: [],
       refresh: 50,
-      isVisible: false
+      isVisible: false,
+      tableTitle: ''
     }
   },
   methods: {
     toggleModal () {
       this.isVisible = !this.isVisible
+    },
+    filter (filter) {
+      this.updateData()
+      setTimeout(() => {
+        let temp = this.wdata.filter(function (r) {
+          return r.status === filter
+        })
+        this.wdata = temp
+        if (filter === '0') {
+          this.tableTitle = 'Not completed To-dos'
+        }
+        if (filter === '1') {
+          this.tableTitle = 'Completed To-dos'
+        }
+      }, 20)
     },
     updateData () {
       axios
@@ -51,11 +71,8 @@ export default {
         .then((r) => (this.wdata = r.data))
         .catch((error) => {
           console.log(error)
-          this.errored = true
         })
-    },
-    hello () {
-      console.log(this.wdata)
+      this.tableTitle = 'All To-dos'
     }
   },
   mounted () {

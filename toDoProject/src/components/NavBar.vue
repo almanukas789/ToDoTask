@@ -1,33 +1,34 @@
 <template>
-    <nav class="navbar"  role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-        <div id="navbar" class="navbar-menu">
-          <div class="navbar-start">
-            <a class="navbar-item" href="/">
-              <img src="../assets/homeicon.png"/>
-            </a>
-            <a class="navbar-item">
-                <router-link style="color:#BEB7A4" :to="{ name: 'About' }">
-                    About
-                </router-link>
+  <nav class="navbar"  role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div id="navbar" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="/">
+          <img src="../assets/homeicon.png"/>
         </a>
-          </div>
-          <div class="navbar-end">
-            <a class="navbar-item" href="https://github.com/almanukas789/ToDoTask" target="_blank">
-                <img src="../assets/githubicon.png"/>
+        <a class="navbar-item">
+          <router-link style="color:#BEB7A4" :to="{ name: 'About' }">
+            About
+          </router-link>
+        </a>
+      </div>
+      <h1 style="color:#c19921;font-size: 35px;">To-dos</h1>
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/almanukas789/ToDoTask" target="_blank">
+          <img src="../assets/githubicon.png"/>
         </a>
         <a class="navbar-item" href="https://lt.linkedin.com/in/almanas-alaburda-6675261b8" target="_blank">
-            <img src="../assets/linkedinicon.png"/>
-    </a>
-          </div>
-        </div>
-      </nav>
+          <img src="../assets/linkedinicon.png"/>
+        </a>
+      </div>
+    </div>
+  </nav>
 </template>
 <script>
 export default {
