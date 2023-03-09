@@ -19,7 +19,7 @@
           </div>
           <div style="margin-left:auto">
             <button class="button" @click="updateTask(item)"><img src="../assets/edit.png" width="20" height="20"/></button>
-            <button class="button is-danger" @click="deleteTask(item.ID)"><img src="../assets/delete.png" width="20" height="20"/></button>
+            <button class="button is-danger" @click="toggleConfirmation(item.ID)"><img src="../assets/delete.png" width="20" height="20"/></button>
           </div>
         </div>
       </div>
@@ -30,14 +30,12 @@
 </template>
 <script>
 import UpdateModal from './UpdateModal.vue'
-import axios from 'axios'
 export default {
   components: {
     UpdateModal
   },
   props: {
     wdata: {
-      type: Array,
       default: undefined
     },
     tableTitle: {
@@ -51,23 +49,15 @@ export default {
     }
   },
   methods: {
+    toggleConfirmation (id) {
+      this.$emit('toggleConfirmation', id)
+    },
     updateTask (item) {
       this.updateData = item
       this.toggleUpdateModal()
     },
     toggleUpdateModal () {
       this.updateModalVisability = !this.updateModalVisability
-    },
-    async deleteTask (item) {
-      await axios
-        .delete(this.$apiUrl + '?id=' + item)
-        .then((response) => {
-          console.log('Deleted')
-        })
-        .catch(function (error) {
-          console.log(error.response)
-        })
-      await this.$emit('updateData')
     }
   }
 }

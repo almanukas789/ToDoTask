@@ -52,7 +52,7 @@ namespace WebApiToDo.Controllers
             conn.Close(); 
             if (i > 0)
             {
-                return "Record was updated!";
+                return "Record was deleted!";
             }
             else
             {

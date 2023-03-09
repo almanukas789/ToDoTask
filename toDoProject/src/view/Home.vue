@@ -1,5 +1,15 @@
 <template>
-  <div id="top">
+  <div id="top" style="">
+    <Notification
+    :type="type"
+    :message="message"
+    />
+    <ConfirmationModal
+    :confirmationVisability="confirmationVisability"
+    :holder="holder"
+    @toggleConfirmation="toggleConfirmation"
+    @updateData="updateData"
+    />
     <addModal
     :isVisible=isVisible
     @toggleModal="toggleModal"
@@ -19,6 +29,7 @@
         :tableTitle="tableTitle"
         :wdata="wdata"
         @updateData="updateData"
+        @toggleConfirmation="toggleConfirmation"
         />
       </div>
     </div>
@@ -30,23 +41,43 @@ import AddModal from '../components/AddModal.vue'
 import NavBar from '../components/NavBar.vue'
 import SideBar from '../components/SideBar.vue'
 import MainBox from '../components/MainBox.vue'
+import ConfirmationModal from '../components/ConfirmationModal.vue'
+import Notification from '../components/Notification.vue'
 import axios from 'axios'
 export default {
   components: {
     NavBar,
     SideBar,
     MainBox,
-    AddModal
+    AddModal,
+    ConfirmationModal,
+    Notification
   },
   data () {
     return {
       wdata: [],
       refresh: 50,
       isVisible: false,
-      tableTitle: ''
+      tableTitle: '',
+      confirmationVisability: false,
+      holder: '',
+      type: '',
+      message: ''
     }
   },
   methods: {
+    notification (message, type) {
+      this.type = type
+      this.message = message
+      setTimeout(() => {
+        this.type = ''
+        this.message = ''
+      }, 2000)
+    },
+    toggleConfirmation (item) {
+      this.confirmationVisability = !this.confirmationVisability
+      this.holder = item
+    },
     toggleModal () {
       this.isVisible = !this.isVisible
     },
@@ -70,7 +101,7 @@ export default {
         .get(this.$apiUrl)
         .then((r) => (this.wdata = r.data))
         .catch((error) => {
-          console.log(error)
+          this.notification(error, 'danger')
         })
       this.tableTitle = 'All To-dos'
     }

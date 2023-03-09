@@ -1,4 +1,9 @@
 <template>
+<div>
+  <Notification
+  :type="type"
+  :message="message"
+  />
   <div class="modal is-active" v-if="isVisible">
     <div class="modal-background" @click="toggleModal"></div>
     <div class="modal-card">
@@ -28,20 +33,35 @@
       </footer>
     </div>
   </div>
+</div>
 </template>
 <script>
+import Notification from '../components/Notification.vue'
 import axios from 'axios'
 export default {
+  components: {
+    Notification
+  },
   props: ['isVisible'],
   data () {
     return {
       timeInput: undefined,
       taskInput: undefined,
       infoMsgState: false,
-      infoMsg: ''
+      infoMsg: '',
+      type: '',
+      message: ''
     }
   },
   methods: {
+    notification (message, type) {
+      this.type = type
+      this.message = message
+      setTimeout(() => {
+        this.type = ''
+        this.message = ''
+      }, 2000)
+    },
     async save () {
       if (this.timeInput === undefined) {
         this.infoMsg = 'Please dedicate the time for your task!'
@@ -53,9 +73,11 @@ export default {
         this.infoMsgState = false
         await axios
           .post(this.$apiUrl + '?task=' + this.taskInput + '&time=' + this.timeInput)
+          .then(() => {
+            this.notification('Task was added to your ToDo list!', 'success')
+          })
           .catch((error) => {
-            this.errorMessage = error.message
-            console.error('ERRORAS!', error)
+            this.notification(error.response, 'danger')
           })
         await this.$emit('updateData')
         await this.toggleModal()
