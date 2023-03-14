@@ -24,7 +24,7 @@
           </select>
         </div>
         <p class="modal-body-text">Task:</p>
-        <textarea class="textarea" placeholder="Enter your task here" v-model="taskInput" required></textarea>
+        <textarea class="textarea" placeholder="Enter your task here" v-model="taskInput" maxlength="100" required></textarea>
         <p style="color:red" v-if="infoMsgState">{{ infoMsg }}</p>
       </section>
       <footer class="modal-card-foot">
@@ -66,7 +66,7 @@ export default {
       if (this.timeInput === undefined) {
         this.infoMsg = 'Please dedicate the time for your task!'
         this.infoMsgState = true
-      } else if (this.taskInput === undefined) {
+      } else if (this.taskInput === undefined || this.taskInput === '') {
         this.infoMsg = 'Please enter your task!'
         this.infoMsgState = true
       } else {

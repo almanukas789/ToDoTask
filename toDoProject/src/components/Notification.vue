@@ -33,12 +33,13 @@ export default {
     justify-content: center;
 }
 .message {
-    position:absolute;
-    width:20%;
-    z-index:2000;
-    text-align: center;
-    left: 0;
-    right: 0;
-    margin: auto;
-  }
+  position: fixed;
+  width: 20%;
+  z-index: 9999;
+  text-align: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
 </style>
