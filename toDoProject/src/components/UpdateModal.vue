@@ -36,7 +36,6 @@
 </div>
 </template>
 <script>
-import axios from 'axios'
 import Notification from './Notification.vue'
 export default {
   components: {
@@ -69,14 +68,18 @@ export default {
         this.infoMsgState = true
       } else {
         this.infoMsgState = false
-        await axios
-          .put(this.$apiUrl + '?id=' + this.updateData.ID + '&task=' + this.updateData.task + '&time=' + this.updateData.time + '&status=' + this.updateData.status)
-          .then(() => {
-            this.notification('Task was updated!', 'success')
-          })
-          .catch((error) => {
-            this.notification(error.response, 'danger')
-          })
+
+        const tempData = {
+          id: this.updateData.id,
+          time: this.updateData.time,
+          status: this.updateData.status,
+          task: this.updateData.task
+        }
+
+        const status = await this.$crud.updateData(tempData)
+
+        this.notification(status.message, status.type)
+
         await this.toggleModal()
       }
     },
