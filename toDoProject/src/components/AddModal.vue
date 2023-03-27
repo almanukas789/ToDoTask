@@ -37,7 +37,6 @@
 </template>
 <script>
 import Notification from '../components/Notification.vue'
-import axios from 'axios'
 export default {
   components: {
     Notification
@@ -71,14 +70,16 @@ export default {
         this.infoMsgState = true
       } else {
         this.infoMsgState = false
-        await axios
-          .post(this.$apiUrl + '?task=' + this.taskInput + '&time=' + this.timeInput)
-          .then(() => {
-            this.notification('Task was added to your ToDo list!', 'success')
-          })
-          .catch((error) => {
-            this.notification(error.response, 'danger')
-          })
+
+        const tempData = {
+          time: this.timeInput,
+          task: this.taskInput,
+          status: false
+        }
+
+        const status = await this.$crud.addData(tempData)
+        this.notification(status.message, status.type)
+
         await this.$emit('updateData')
         await this.toggleModal()
       }

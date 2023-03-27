@@ -3,10 +3,12 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import CrudPlugin from './plugins/crud'
 
 Vue.config.productionTip = false
 
-Vue.prototype.$apiUrl = 'https://localhost:7281/todo'
+Vue.prototype.$apiUrl = 'https://localhost:7281/api/ToDoTask'
+Vue.use(CrudPlugin)
 
 /* eslint-disable no-new */
 new Vue({

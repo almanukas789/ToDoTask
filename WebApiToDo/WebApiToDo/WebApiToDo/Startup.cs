@@ -9,7 +9,6 @@ namespace WebApiToDo
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add CORS services to the services container.
             services.AddCors();
 
             services.AddControllers();
@@ -19,13 +18,10 @@ namespace WebApiToDo
         {
             app.UseCors(builder =>
             {
-                // Allow requests from any origin.
                 builder.AllowAnyOrigin();
 
-                // Allow any method.
                 builder.AllowAnyMethod();
 
-                // Allow any header.
                 builder.AllowAnyHeader();
             });
 

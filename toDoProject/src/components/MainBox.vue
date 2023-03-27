@@ -12,10 +12,10 @@
       <h1 style="text-align:center; color:#BEB7A4">{{ tableTitle }}</h1>
       <div v-for="item in wdata" :key="item.id" class="box">
         <div style="display:flex">
-          <div v-if="item.status === '0'" @click="changeStatus(item,'1')" class="checkbox">
+          <div v-if="item.status === false" @click="changeStatus(item,true)" class="checkbox">
             <img src="../assets/uncheck.png" width="50" height="50"/>
           </div>
-          <div v-if="item.status === '1'" @click="changeStatus(item,'0')" class="checkbox">
+          <div v-if="item.status === true" @click="changeStatus(item,false)" class="checkbox">
             <img src="../assets/check.png" width="50" height="50"/>
           </div>
           <div style="display:flex ; flex-direction: column;">
@@ -24,7 +24,7 @@
           </div>
           <div style="margin-left:auto">
             <button class="button" style="width: 55px; height: 45px;" @click="updateTask(item)"><img src="../assets/edit.png" width="100" height="100"/></button>
-            <button class="button is-danger" style="width: 55px; height: 45px;" @click="toggleConfirmation(item.ID)"><img src="../assets/delete.png" width="100" height="100"/></button>
+            <button class="button is-danger" style="width: 55px; height: 45px;" @click="toggleConfirmation(item.id)"><img src="../assets/delete.png" width="100" height="100"/></button>
           </div>
         </div>
       </div>
@@ -34,7 +34,6 @@
 </div>
 </template>
 <script>
-import axios from 'axios'
 import UpdateModal from './UpdateModal.vue'
 export default {
   components: {
@@ -56,12 +55,16 @@ export default {
   },
   methods: {
     async changeStatus (item, status) {
-      await axios
-        .put(this.$apiUrl + '?id=' + item.ID + '&task=' + item.task + '&time=' + item.time + '&status=' + status)
-        .catch((error) => {
-          console.log(error)
-        })
-      await this.$emit('updateData')
+      const tempData = {
+        id: item.id,
+        task: item.task,
+        time: item.time,
+        status: status
+      }
+
+      this.$crud.updateData(tempData)
+
+      this.$emit('updateData')
     },
     toggleConfirmation (id) {
       this.$emit('toggleConfirmation', id)

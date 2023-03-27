@@ -43,7 +43,6 @@ import SideBar from '../components/SideBar.vue'
 import MainBox from '../components/MainBox.vue'
 import ConfirmationModal from '../components/ConfirmationModal.vue'
 import Notification from '../components/Notification.vue'
-import axios from 'axios'
 export default {
   components: {
     NavBar,
@@ -88,23 +87,23 @@ export default {
           return r.status === filter
         })
         this.wdata = temp
-        if (filter === '0') {
+        if (filter === false) {
           this.tableTitle = 'Not completed To-dos'
         }
-        if (filter === '1') {
+        if (filter === true) {
           this.tableTitle = 'Completed To-dos'
         }
       }, 20)
     },
-    updateData () {
-      axios
-        .get(this.$apiUrl)
-        .then((r) => (this.wdata = r.data))
-        .catch((error) => {
-          this.notification(error, 'danger')
-        })
-      this.tableTitle = 'All To-dos'
+    async updateData () {
+      try {
+        this.wdata = await this.$crud.getData()
+        this.tableTitle = 'All To-dos'
+      } catch (error) {
+        this.notification(error, 'danger')
+      }
     }
+
   },
   mounted () {
     this.updateData()

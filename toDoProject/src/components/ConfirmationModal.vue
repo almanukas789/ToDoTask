@@ -20,7 +20,6 @@
 </div>
 </template>
 <script>
-import axios from 'axios'
 import Notification from '../components/Notification.vue'
 export default {
   components: {
@@ -46,15 +45,12 @@ export default {
       this.$emit('toggleConfirmation')
     },
     async deleteTask () {
-      await axios
-        .delete(this.$apiUrl + '?id=' + this.holder)
-        .then(() => {
-          this.notification('Deleted successfully!', 'success')
-        })
-        .catch(function (error) {
-          this.notification(error.response, 'danger')
-        })
+      const status = await this.$crud.deleteData(this.holder)
+
+      this.notification(status.message, status.type)
+
       this.toggleVisability()
+
       await this.$emit('updateData')
     }
   }
