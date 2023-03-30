@@ -1,0 +1,15 @@
+C:\Users\alman\OneDrive\Stalinis kompiuteris\ToDoTask\WebApiToDo\WebApiToDo\Service\WebApiToDo.Service\bin\Debug\net6.0\WebApiToDo.Service.deps.json
+C:\Users\alman\OneDrive\Stalinis kompiuteris\ToDoTask\WebApiToDo\WebApiToDo\Service\WebApiToDo.Service\bin\Debug\net6.0\WebApiToDo.Service.dll
+C:\Users\alman\OneDrive\Stalinis kompiuteris\ToDoTask\WebApiToDo\WebApiToDo\Service\WebApiToDo.Service\bin\Debug\net6.0\WebApiToDo.Service.pdb
+C:\Users\alman\OneDrive\Stalinis kompiuteris\ToDoTask\WebApiToDo\WebApiToDo\Service\WebApiToDo.Service\bin\Debug\net6.0\WebApiToDo.Repository.dll
+C:\Users\alman\OneDrive\Stalinis kompiuteris\ToDoTask\WebApiToDo\WebApiToDo\Service\WebApiToDo.Service\bin\Debug\net6.0\WebApiToDo.Repository.pdb
+C:\Users\alman\OneDrive\Stalinis kompiuteris\ToDoTask\WebApiToDo\WebApiToDo\Service\WebApiToDo.Service\obj\Debug\net6.0\WebApiToDo.Service.csproj.AssemblyReference.cache
+C:\Users\alman\OneDrive\Stalinis kompiuteris\ToDoTask\WebApiToDo\WebApiToDo\Service\WebApiToDo.Service\obj\Debug\net6.0\WebApiToDo.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alman\OneDrive\Stalinis kompiuteris\ToDoTask\WebApiToDo\WebApiToDo\Service\WebApiToDo.Service\obj\Debug\net6.0\WebApiToDo.Service.AssemblyInfoInputs.cache
+C:\Users\alman\OneDrive\Stalinis kompiuteris\ToDoTask\WebApiToDo\WebApiToDo\Service\WebApiToDo.Service\obj\Debug\net6.0\WebApiToDo.Service.AssemblyInfo.cs
+C:\Users\alman\OneDrive\Stalinis kompiuteris\ToDoTask\WebApiToDo\WebApiToDo\Service\WebApiToDo.Service\obj\Debug\net6.0\WebApiToDo.Service.csproj.CoreCompileInputs.cache
+C:\Users\alman\OneDrive\Stalinis kompiuteris\ToDoTask\WebApiToDo\WebApiToDo\Service\WebApiToDo.Service\obj\Debug\net6.0\WebApiToDo.Service.csproj.CopyComplete
+C:\Users\alman\OneDrive\Stalinis kompiuteris\ToDoTask\WebApiToDo\WebApiToDo\Service\WebApiToDo.Service\obj\Debug\net6.0\WebApiToDo.Service.dll
+C:\Users\alman\OneDrive\Stalinis kompiuteris\ToDoTask\WebApiToDo\WebApiToDo\Service\WebApiToDo.Service\obj\Debug\net6.0\refint\WebApiToDo.Service.dll
+C:\Users\alman\OneDrive\Stalinis kompiuteris\ToDoTask\WebApiToDo\WebApiToDo\Service\WebApiToDo.Service\obj\Debug\net6.0\WebApiToDo.Service.pdb
+C:\Users\alman\OneDrive\Stalinis kompiuteris\ToDoTask\WebApiToDo\WebApiToDo\Service\WebApiToDo.Service\obj\Debug\net6.0\ref\WebApiToDo.Service.dll

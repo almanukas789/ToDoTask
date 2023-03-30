@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using WebApiToDo.Data;
+using WebApiToDo.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ToDoTaskAPIDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("ToDoTaskApiConnectionString")));
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

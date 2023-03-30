@@ -1,17 +1,24 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using WebApiToDo.Repository;
+using WebApiToDo.Service;
+using Microsoft.Extensions.Configuration;
+
 
 namespace WebApiToDo
 {
     public class Startup
     {
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
 
             services.AddControllers();
+
+            services.AddTransient<IWebApiToDoRepository, WebApiToDoRepository>();
+
+            services.AddTransient<IWebApiToDoService, WebApiToDoService>();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
