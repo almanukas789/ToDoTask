@@ -1,7 +1,7 @@
 import axios from 'axios'
 export const crud = {}
 
-var apiUrl = 'https://localhost:7281/api/ToDoTask'
+var apiUrl = 'https://localhost:7281/ToDoTasks'
 
 crud.getData = function () {
   return new Promise((resolve) => {
