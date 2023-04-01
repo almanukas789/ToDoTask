@@ -1,90 +1,56 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApiToDo.Data;
-using WebApiToDo.Models;
+using WebApiToDo.Service;
+using WebApiToDo.Service.DTOs;
 
 namespace WebApiToDo.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
-    public class ToDoTaskController : Controller
+    [Route("[controller]")]
+    public class ToDoTasksController : ControllerBase
     {
-        private readonly ToDoTaskAPIDbContext dbContext;
-
-        public ToDoTaskController(ToDoTaskAPIDbContext dbContext)
+        private readonly IWebApiToDoService _service;
+        public ToDoTasksController(IWebApiToDoService service)
         {
-            this.dbContext = dbContext;
+            _service = service;
         }
 
-        [HttpGet]
-        public IActionResult GetToDoTasks() //Gauti visus taskus
+        [HttpGet("{id}")]
+        public async Task<ActionResult> Get(Guid id)
         {
-            return Ok(dbContext.ToDoTasks.ToList());
-        }
-
-        [HttpGet]
-        [Route("{id:guid}")]
-        public async Task<IActionResult> GetToDoTask([FromRoute] Guid id) // Gauti specifiska task'a
-        {
-            var task = await dbContext.ToDoTasks.FindAsync(id);
-
-            if (task != null)
+            var result = await _service.GetToDoTask(id);
+            if (result == null)
             {
-                return Ok(task);
+                return NotFound();
             }
-
-            return NotFound();
+            return Ok(result);
         }
+
+        [HttpGet]
+        public async Task<ActionResult> GetAll()
+        {
+            var result = await _service.GetAllToDoTask();
+            return Ok(result);
+        }
+
         [HttpPost]
-        public async Task<IActionResult> AddToDoTask(AddToDoTaskRequest addToDoTaskRequest)
+        public async Task<ActionResult> CreateToDoTask(AddToDoTaskRequest request)
         {
-            var task = new ToDoTask()
-            {
-                Id = Guid.NewGuid(),
-                Task= addToDoTaskRequest.Task,
-                Time= addToDoTaskRequest.Time,
-                Status= addToDoTaskRequest.Status,
-            };
-
-            await dbContext.ToDoTasks.AddAsync(task);
-            await dbContext.SaveChangesAsync();
-
-            return Ok(task);
+            var result = await _service.CreateToDoTask(request);
+            return Ok(result);
         }
 
-        [HttpPut]
-        [Route("{id:guid}")]
-        public async Task<IActionResult> UpdateToDoTask([FromRoute] Guid id, UpdateToDoTaskRequest updateToDoTaskRequest)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(Guid id, UpdateToDoTaskRequest request)
         {
-            var task = await dbContext.ToDoTasks.FindAsync(id);
-
-            if (task != null) 
-            {
-                task.Time = updateToDoTaskRequest.Time;
-                task.Status= updateToDoTaskRequest.Status;
-                task.Task= updateToDoTaskRequest.Task;
-
-                await dbContext.SaveChangesAsync();
-
-                return Ok(task);
-            }
-
-            return NotFound();
+            var result = await _service.UpdateToDoTask(id, request);
+            return Ok(result);
         }
 
-        [HttpDelete]
-        [Route("{id:guid}")]
-        public async Task<IActionResult> DeleteToDoTask([FromRoute] Guid id)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(Guid id)
         {
-            var task = await dbContext.ToDoTasks.FindAsync(id);
-
-            if (task != null)
-            {
-                dbContext.Remove(task);
-                await dbContext.SaveChangesAsync();
-                return Ok(task);
-            }
-
-            return NotFound();
+            await _service.DeleteToDoTask(id);
+            return NoContent();
         }
     }
 }
