@@ -12,6 +12,9 @@ builder.Services.AddControllers();
 builder.Services.AddTransient<IWebApiToDoRepository, WebApiToDoRepository>();
 builder.Services.AddTransient<IWebApiToDoService, WebApiToDoService>();
 
+builder.Services.AddTransient<ITasksNotesRepository, TasksNotesRepository>();
+builder.Services.AddTransient<ITasksNotesService, TasksNotesService>();
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

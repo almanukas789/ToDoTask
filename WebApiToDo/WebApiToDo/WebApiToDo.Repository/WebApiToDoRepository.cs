@@ -28,12 +28,10 @@ namespace WebApiToDo.Repository
             _dbContext.Remove(task);
             await _dbContext.SaveChangesAsync();
         }
-
         public Task<List<ToDoTask>> GetAllToDoTasks()
         {
-           return _dbContext.ToDoTasks.ToListAsync();
+            return _dbContext.ToDoTasks.ToListAsync();
         }
-
         public async Task<ToDoTask> GetToDoTask(Guid id)
         {
             var task = await _dbContext.ToDoTasks.FindAsync(id);
